@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
@@ -7,7 +7,6 @@ import Modal from "@/components/ui/modal";
 import { useEffect } from "react";
 import { useStoreModal } from "@/hooks/use-store-modal";
 
-export const dynamic = 'force-dynamic';
 
 const SetupPage = () => {
     const onOpen = useStoreModal((state) => state.onOpen)
@@ -19,11 +18,7 @@ const SetupPage = () => {
         }
     }, [isOpen, onOpen]);
 
-  return (
-    <div className="p-4">
-        Boot Page
-    </div>
-  );
+  return null
 };
 
 export default SetupPage;

@@ -33,16 +33,15 @@ export const StoreModal = () => {
 
     const onSubmit = async (values: z.infer<typeof fromSchema>) => {
         try {
-            setLoading(true);
-            
+          setLoading(true);
           const response = await axios.post("/api/stores", values);
-
           console.log(response.data);
-            toast.success("Anda berhasil membuat toko")
+            toast.success("Anda berhasil membuat toko");
+            window.location.assign(`/${response.data.id}`)
         } catch (error) {
-          toast.error("Anda gagal membuat toko")
+          toast.error("Anda gagal membuat toko");
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     };
 
