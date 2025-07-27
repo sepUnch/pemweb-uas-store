@@ -74,21 +74,12 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(
-          `/api/${params.storeId}/categories
-          /${params.categoryId}`,
-          data
-        );
+        await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
       } else {
-        await axios.post(
-          `/api/${params.storeId}/categories
-          `,
-          data
-        );
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/categories
-        `);
+      router.push(`/${params.storeId}/categories`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Cek kembali data yang dimasukkan");
@@ -100,11 +91,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/categories
-        /${params.categoryId}`);
+      await axios.delete(`/api/${params.storeId}/categories/${params.categoryId}`);
       router.refresh();
-      router.push(`/${params.storeId}/categories
-        `);
+      router.push(`/${params.storeId}/categories`);
       toast.success("Category berhasil dihapus");
     } catch (error) {
       toast.error("Cek kembali data dan koneksi mu");
