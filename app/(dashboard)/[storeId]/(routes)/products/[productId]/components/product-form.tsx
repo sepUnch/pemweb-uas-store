@@ -74,7 +74,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     : "Product berhasil dibuat";
   const action = initialData ? "Simpan Perubahan" : "Buat Product";
 
-  // Nilai default form tidak perlu diubah
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
@@ -92,7 +91,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         },
   });
 
-  // PERUBAHAN 2: Alamat API (endpoint) diperbaiki
   const onSubmit = async (data: ProductFormValues) => {
     try {
       setLoading(true);
@@ -102,10 +100,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/banners`, data);
+        await axios.post(`/api/${params.storeId}/products`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/banners`);
+      router.push(`/${params.storeId}/products`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Cek kembali data yang dimasukkan.");
@@ -114,14 +112,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     }
   };
 
-  // PERUBAHAN 3: Endpoint untuk hapus data diperbaiki
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/banners/${params.bannerId}`);
+      await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
       router.refresh();
-      router.push(`/${params.storeId}/banners`);
-      toast.success("Banner berhasil dihapus.");
+      router.push(`/${params.storeId}/products`);
+      toast.success("Produk berhasil dihapus.");
     } catch (error) {
       toast.error("Cek kembali data dan koneksi Anda.");
     } finally {
@@ -254,22 +251,40 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="price"
+              name="isFeatured"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
                     <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                  <FormLabel>
-                    Featured
-                  </FormLabel>
-                  <FormDescription>
-                    Produk ini akan muncul di Home Page
-                  </FormDescription>
+                    <FormLabel>Featured</FormLabel>
+                    <FormDescription>
+                      Produk ini akan muncul di Home Page
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="isArchived"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Archived</FormLabel>
+                    <FormDescription>
+                      Produk ini akan disembunyikan dari Home Page
+                    </FormDescription>
                   </div>
                 </FormItem>
               )}
