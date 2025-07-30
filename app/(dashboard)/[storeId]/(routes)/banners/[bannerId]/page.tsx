@@ -4,7 +4,7 @@ import { BannerForm } from "./components/banner-form";
 const BannerPage = async ({
     params
 }: {
-    params: {bannerId: string}
+    params: { storeId: string; bannerId: string }
 }) => {
     const banner = await db.banner.findUnique({
         where: {
