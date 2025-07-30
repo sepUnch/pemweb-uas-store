@@ -1,7 +1,7 @@
 import db from "@/lib/db";
 import { BannerForm } from "./components/banner-form";
 
-export default async function BannerPage({
+export default async function Page({
   params,
 }: {
   params: { storeId: string; bannerId: string };
