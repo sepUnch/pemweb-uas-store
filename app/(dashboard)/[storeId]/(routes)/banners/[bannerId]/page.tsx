@@ -1,11 +1,14 @@
 import db from "@/lib/db";
 import { BannerForm } from "./components/banner-form";
 
-const BannerPage = async ({
-  params,
-}: {
-  params: { storeId: string; bannerId: string };
-}) => {
+interface BannerPageProps {
+  params: {
+    storeId: string;
+    bannerId: string;
+  };
+}
+
+const BannerPage = async ({ params }: BannerPageProps) => {
   const banner = await db.banner.findUnique({
     where: {
       id: params.bannerId,
